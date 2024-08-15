@@ -1,14 +1,9 @@
 package co.edu.uniquindio.talleruno.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -27,24 +22,10 @@ public class JWTUtils {
                 .setSubject(nombre)
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(now.plus(20L, ChronoUnit.DAYS)))
-                .setIssuer("ingesis.uniquindio.edu.co") // Agrega el emisor al payload
+                .setIssuer("ingesis.uniquindio.edu.co")
                 .signWith(getKey())
-                .setHeaderParam("typ", "JWT") // Agrega el tipo de token al header
+                .setHeaderParam("typ", "JWT")
                 .compact();
-    }
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    public String parseJwt(String jwtString) throws ExpiredJwtException,
-            UnsupportedJwtException, MalformedJwtException, IllegalArgumentException, JsonProcessingException, IOException {
-        Jws<Claims> jws = Jwts.parserBuilder()
-                .setSigningKey(getKey())
-                .build()
-                .parseClaimsJws(jwtString);
-
-        String subject = jws.getBody().getSubject();
-        JsonNode jsonNode = objectMapper.readTree(subject);
-        return jsonNode.get("nombre").asText();
     }
 
     private Key getKey(){
