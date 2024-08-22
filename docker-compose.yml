@@ -10,4 +10,12 @@ services:
       context: ./Autenticacion
     ports:
       - "8081:8081"
-   
+  
+  app3-cliente:
+    build:
+      context: ./Cliente
+    ports:
+      - "8082:8082"
+    environment:
+      - auth.service.url=http://app2-autenticacion:8081/autenticacion
+      - saludo.service.url=http://app1-saludo:8080/saludo
