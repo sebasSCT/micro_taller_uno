@@ -43,8 +43,7 @@ public class JWTUtils {
                 .parseClaimsJws(jwtString);
 
         String subject = jws.getBody().getSubject();
-        JsonNode jsonNode = objectMapper.readTree(subject);
-        return jsonNode.get("nombre").asText();
+        return subject;
     }
 
     private Key getKey(){

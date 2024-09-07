@@ -28,10 +28,10 @@ public class IntegracionService {
 
     public String obtenerToken(String nombre) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.TEXT_PLAIN);
 
-        String jsonBody = "{\"nombre\":\"" + nombre + "\"}";
-        HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
+        String nameBody = nombre;
+        HttpEntity<String> request = new HttpEntity<>(nameBody, headers);
 
         ResponseEntity<String> respuesta = restTemplate.postForEntity(
                 authServiceUrl,

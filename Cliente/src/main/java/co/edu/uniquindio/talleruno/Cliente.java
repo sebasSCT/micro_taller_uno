@@ -27,7 +27,9 @@ public class Cliente implements CommandLineRunner {
 	public void run(String... args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Por favor, ingrese su nombre: ");
-		String nombre = scanner.nextLine();
+		String nombre = scanner.next();
+		System.out.println(nombre);
+		//String nombre = "Carlos";
 
 		try {
 			String token = integracionService.obtenerToken(nombre);
